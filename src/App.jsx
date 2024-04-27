@@ -10,6 +10,7 @@ import Guest from './Pages/Guest.jsx';
 import GuestViewMeal from './Pages/GuestViewMeal.jsx'; 
 import GuestViewFood from './Pages/GuestViewFood.jsx'; 
 import GuestRecordMeal from './Pages/GuestRecordMeal.jsx'; 
+import CheckIn from './Pages/CheckIn.jsx';
 
 /* don't delete this import */
 import './App.css';
@@ -33,7 +34,8 @@ function App()
         <Route path="/GuestRecordMeal" element={<GuestRecordMeal />} />
         <Route path="/GuestViewMeal" element={<GuestViewMeal />} />
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
-
+        <Route path="/CheckIn" element={<CheckIn />} />
+        
         {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>
