@@ -1,6 +1,6 @@
 /* src/Authentication/SignUpForm.css */
 
-.signup-form {
+.box{
   display: auto;
   
   margin-left: 25%;
@@ -16,7 +16,11 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   width: 400px;
 }
-
+body{
+  display:list-item;
+  justify-content:center;
+  background-color: rgba(115, 201, 255, 0.985);;
+}
 .signup-title {
   color: black;
   margin-left: 40%;

@@ -1,7 +1,7 @@
 /* src/Authentication/LoginForm.css */
 
-.login-form {
-  display: auto;
+.body {
+  display: flex;
   margin-left: 25%;
   margin-bottom: 25 px;
   bottom: 10%;
@@ -20,6 +20,7 @@
 .dropdown 
 {
   color: black;
+  background-color:whit;
   width: 90%; /* Ensures dropdown fits well within the form */
   margin-bottom: 15px; /* Spacing after dropdown */
 }
@@ -64,7 +65,8 @@ button.login-button {
   border-radius: 10px; /* Rounded edges on buttons */
   background-color: rgb(7, 175, 226); /* Bright, appealing button color */
   color: white; /* White text for contrast */
-  cursor: pointer; /* Cursor effect to indicate button */
+  cursor: pointer;
+  align-content: center; /* Cursor effect to indicate button */
 }
 
 button.login-button:hover {
