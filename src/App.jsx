@@ -9,16 +9,11 @@ import LoginForm from './AuthenticationPage/LoginForm.jsx';
 import HomeSignInPage from './AuthenticationPage/HomeSignInPage.jsx';
 import HomeSignUpPage from './AuthenticationPage/HomeSignUpPage.jsx';
 import Guest from './Pages/Guest.jsx'; 
-<<<<<<< Updated upstream
 import GuestRecordMeal from './Pages/GuestRecordMeal.jsx';
 import GuestViewMeal from './Pages/GuestViewMeal.jsx';
 import GuestViewFood from './Pages/GuestViewFood.jsx';
 import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
-
-=======
-import DietitianDashboard from './Dashboard/DietitianDashboard.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
->>>>>>> Stashed changes
 /* don't delete this import */
 import './App.css';
 import SignUpForm from './AuthenticationPage/SignUpForm.jsx';
@@ -42,17 +37,10 @@ function App()
         <Route path="/SignIn" element={<HomeSignInPage />} />
         <Route path="/SignUp" element={<HomeSignUpPage />} />
         <Route path="/Guest" element={<Guest />} />
-<<<<<<< Updated upstream
         <Route path="/GuestRecordMeal" element={<GuestRecordMeal />} />
         <Route path="/GuestViewMeal" element={<GuestViewMeal />} />
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
-<<<<<<< Updated upstream
-=======
-        <Route path="/DietitianDashboard" element={<DietitianDashboard />} />
->>>>>>> Stashed changes
-=======
         <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
->>>>>>> Stashed changes
         {/* Add more routes as needed */}
       </Routes>
       </AuthProvider>

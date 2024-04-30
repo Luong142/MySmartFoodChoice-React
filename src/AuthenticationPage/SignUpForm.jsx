@@ -4,11 +4,7 @@ import { getDatabase, ref, set } from 'firebase/database';
 import { auth } from '../Firebase/Firebase'; // Adjust this import path to your Firebase config and instances
 import './SignUpForm.css';
 import { useNavigate, Link } from 'react-router-dom';
-<<<<<<< Updated upstream
 import Header from '../HeaderComponents/Header';
-=======
-import Header from "../HeaderComponents/Header";
->>>>>>> Stashed changes
 
 function SignUpForm() {
   const [email, setEmail] = useState('');

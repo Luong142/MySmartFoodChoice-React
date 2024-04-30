@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css';
-<<<<<<< Updated upstream
 import Header from '../HeaderComponents/Header';
-=======
-import Header from "../HeaderComponents/Header";
->>>>>>> Stashed changes
+
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -25,32 +22,10 @@ function LoginForm() {
       const snapshot = await get(emailQuery);
       if (snapshot.exists()) {
         let userAuthenticated = false;
-
-<<<<<<< Updated upstream
-        snapshot.forEach((childSnapshot) => {
-          const userData = childSnapshot.val();
-          // Check the provided email, password, and userType against stored values
-          if (userData.password === password && userData.accountType === userType) {
-            userAuthenticated = true;
-            // If "Remember Me" is checked, store uid and userType in local storage
-            if (rememberMe) {
-              localStorage.setItem('uid', childSnapshot.key);
-              localStorage.setItem('userType', userType);
-            }
-            // Perform navigation based on userType
-            if (userType === 'User') {
-              navigate('/UserDashboard');
-            } else if (userType === 'Dietitian') {
-              navigate('/DietitianDashboard');
-            }
-            return true; // Stop iterating through the loop
-          }
-=======
         // Convert snapshot to an array and use a regular for loop
         const usersArray = [];
         snapshot.forEach(childSnapshot => {
           usersArray.push({ key: childSnapshot.key, data: childSnapshot.val() });
->>>>>>> Stashed changes
         });
 
         for (const { key, data } of usersArray) {
