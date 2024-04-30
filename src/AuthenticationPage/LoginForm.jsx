@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
+import Header from '../HeaderComponents/Header';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -34,9 +35,9 @@ function LoginForm() {
             }
             // Perform navigation based on userType
             if (userType === 'User') {
-              navigate('/userDashboard');
+              navigate('/UserDashboard');
             } else if (userType === 'Dietitian') {
-              navigate('/dietitianDashboard');
+              navigate('/DietitianDashboard');
             }
             return true; // Stop iterating through the loop
           }
@@ -58,6 +59,7 @@ function LoginForm() {
 
   return (
     <div className="login-container">
+      <Header/>
       <div className="login-form">
         <h2 className='login-title'>Login</h2>
         <form onSubmit={handleLogin}>

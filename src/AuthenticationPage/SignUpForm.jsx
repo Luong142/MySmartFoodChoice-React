@@ -4,6 +4,7 @@ import { getDatabase, ref, set } from 'firebase/database';
 import { auth } from '../Firebase/Firebase'; // Adjust this import path to your Firebase config and instances
 import './SignUpForm.css';
 import { useNavigate, Link } from 'react-router-dom';
+import Header from '../HeaderComponents/Header';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -49,6 +50,7 @@ function SignUpForm() {
 
   return (
     <div className="signup-container">
+      <Header/>
       <h1 className="header-title">Sign Up</h1>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit} className="signup-form">
@@ -111,7 +113,7 @@ function SignUpForm() {
           <label className="user-type-container">Account Type</label>
           <select value={accountType} onChange={(e) => setAccountType(e.target.value)} required>
             <option value="User">User</option>
-            <option value="Admin">Admin</option>  // Example, add more account types as needed
+            <option value="Dietitian">Dietitian</option>  // Example, add more account types as needed
           </select>
         </div>
 
