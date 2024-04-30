@@ -13,6 +13,7 @@ import Guest from './Pages/Guest.jsx';
 import GuestRecordMeal from './Pages/GuestRecordMeal.jsx';
 import GuestViewMeal from './Pages/GuestViewMeal.jsx';
 import GuestViewFood from './Pages/GuestViewFood.jsx';
+import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
 
 =======
 import DietitianDashboard from './Dashboard/DietitianDashboard.jsx';
@@ -45,8 +46,12 @@ function App()
         <Route path="/GuestRecordMeal" element={<GuestRecordMeal />} />
         <Route path="/GuestViewMeal" element={<GuestViewMeal />} />
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
+<<<<<<< Updated upstream
 =======
         <Route path="/DietitianDashboard" element={<DietitianDashboard />} />
+>>>>>>> Stashed changes
+=======
+        <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
 >>>>>>> Stashed changes
         {/* Add more routes as needed */}
       </Routes>
