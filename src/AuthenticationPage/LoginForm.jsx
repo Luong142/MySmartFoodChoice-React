@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css';
+import Header from '../HeaderComponents/Header';
+
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('User'); // Default to 'User' userType
+  const [userType, setUserType] = useState('User');
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     const db = getDatabase();
     const usersRef = ref(db, 'Registered Accounts');
     const emailQuery = query(usersRef, orderByChild('email'), equalTo(email));
@@ -21,86 +22,64 @@ function LoginForm() {
       const snapshot = await get(emailQuery);
       if (snapshot.exists()) {
         let userAuthenticated = false;
-
-        snapshot.forEach((childSnapshot) => {
-          const userData = childSnapshot.val();
-          // Check the provided email, password, and userType against stored values
-          if (userData.password === password && userData.accountType === userType) {
-            userAuthenticated = true;
-            // If "Remember Me" is checked, store uid and userType in local storage
-            if (rememberMe) {
-              localStorage.setItem('uid', childSnapshot.key);
-              localStorage.setItem('userType', userType);
-            }
-            // Perform navigation based on userType
-            if (userType === 'User') {
-              navigate('/userDashboard');
-            } else if (userType === 'Dietitian') {
-              navigate('/dietitianDashboard');
-            }
-            return true; // Stop iterating through the loop
-          }
+        // Convert snapshot to an array and use a regular for loop
+        const usersArray = [];
+        snapshot.forEach(childSnapshot => {
+          usersArray.push({ key: childSnapshot.key, data: childSnapshot.val() });
         });
+
+        for (const { key, data } of usersArray) {
+          if (data.password === password && data.accountType === userType) {
+            userAuthenticated = true;
+            localStorage.setItem('uid', key);
+            localStorage.setItem('userType', userType);
+            localStorage.setItem('email', email);  // Store email on successful login
+            if (userType === 'User') {
+              navigate('/UserDashBoard');
+            } else if (userType === 'Dietitian') {
+              navigate('/DietitianDashBoard');
+            }
+            break;
+          }
+        }
 
         if (!userAuthenticated) {
           console.error("Invalid credentials or account type mismatch");
-          // Handle login failure
+          alert("Invalid credentials or account type mismatch");
         }
       } else {
         console.error("User does not exist.");
-        // Handle user not found
+        alert("User does not exist.");
       }
     } catch (error) {
       console.error("Login failed:", error.message);
-      // Handle error
+      alert("Login failed: " + error.message);
     }
   };
 
   return (
     <div className="login-container">
+      <Header/>
       <div className="login-form">
         <h2 className='login-title'>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label className='email-container'>Email</label>
-            <input
-              type="email"
-              placeholder="Please enter email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input type="email" placeholder="Enter your email" value={email} required onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="input-group">
             <label className='password-container'>Password</label>
-            <input
-              type="password"
-              placeholder="Please enter password"
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <input type="password" placeholder="Enter your password" value={password} required onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="input-group">
             <label htmlFor="userType">Type of User:</label>
-            <select
-              name="userType"
-              id="userType"
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              required
-            >
+            <select name="userType" id="userType" value={userType} required onChange={(e) => setUserType(e.target.value)}>
               <option value="User">User</option>
               <option value="Dietitian">Dietitian</option>
             </select>
           </div>
           <div className="remember-me">
-            <input
-              type="checkbox"
-              id="rememberMe"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
+            <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
             <label htmlFor="rememberMe">Remember me?</label>
           </div>
           <button className='login-button' type="submit">LOGIN</button>

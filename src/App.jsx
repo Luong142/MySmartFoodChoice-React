@@ -12,7 +12,8 @@ import Guest from './Pages/Guest.jsx';
 import GuestRecordMeal from './Pages/GuestRecordMeal.jsx';
 import GuestViewMeal from './Pages/GuestViewMeal.jsx';
 import GuestViewFood from './Pages/GuestViewFood.jsx';
-
+import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
+import { AuthProvider } from './contexts/AuthContext.jsx';
 /* don't delete this import */
 import './App.css';
 import SignUpForm from './AuthenticationPage/SignUpForm.jsx';
@@ -25,6 +26,7 @@ function App()
   // review database share route
   return (
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path = "/SignIn" element={<LoginForm/>} />
@@ -38,8 +40,10 @@ function App()
         <Route path="/GuestRecordMeal" element={<GuestRecordMeal />} />
         <Route path="/GuestViewMeal" element={<GuestViewMeal />} />
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
+        <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
         {/* Add more routes as needed */}
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
