@@ -1,5 +1,53 @@
-/* DietitianDashBoard.css */
+/* Base settings for the entire body to ensure proper font and layout */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1a1a1a; /* Darker background for a sleek look */
+  color: #fff; /* White text for contrast */
+}
+
+/* Main container style to ensure content uses flex for centering */
 .dashboard-container {
-    padding-top: 100px; /* Adjust based on your header's height */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content towards the top */
+  text-align: center;
+  padding-top: 50px; /* Space from top for breathing room */
+  min-height: 100vh; /* Ensure it fills at least the full height of the viewport */
+}
+
+/* Styling for the header */
+h1 {
+  margin-bottom: 30px; /* Space below the greeting */
+  font-size: 2.5rem; /* Large text for emphasis */
+}
+
+/* Container for buttons to ensure vertical alignment */
+.action-buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Center buttons horizontally */
+  gap: 15px; /* Space between buttons */
+}
+
+/* Styling for individual buttons */
+button {
+  background-color: #007bff; /* Bright blue for a pop of color */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s ease-out;
+  width: 200px; /* Uniform width for all buttons */
+}
+
+/* Hover and focus effects to increase interaction feedback */
+button:hover, button:focus {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}

@@ -14,6 +14,7 @@ import GuestViewMeal from './Pages/GuestViewMeal.jsx';
 import GuestViewFood from './Pages/GuestViewFood.jsx';
 import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import CreateBusinessProfile from './Dashboard/CreateBusinessProfile.jsx';
 /* don't delete this import */
 import './App.css';
 import SignUpForm from './AuthenticationPage/SignUpForm.jsx';
@@ -41,6 +42,7 @@ function App()
         <Route path="/GuestViewMeal" element={<GuestViewMeal />} />
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
         <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
+        <Route path="/CreateBusinessProfile" element={<CreateBusinessProfile />} />
         {/* Add more routes as needed */}
       </Routes>
       </AuthProvider>

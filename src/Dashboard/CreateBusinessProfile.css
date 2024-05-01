@@ -1,0 +1,66 @@
+/* Base styling for the container */
+.profile-form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the form header */
+.profile-form-container h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+/* Flexbox layout for the form for vertical alignment and spacing */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Styling for labels and inputs for better alignment and visibility */
+.profile-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;  /* Makes the font larger and easier to read */
+}
+
+.profile-form input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ccc;  /* Thicker border for better visibility */
+    border-radius: 6px;
+    transition: border-color 0.3s;
+    font-size: 16px;  /* Larger font size for easier readability */
+}
+
+/* Focus effect for input fields */
+.profile-form input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;  /* Removes default focus outline and uses border color change instead */
+}
+
+/* Styling for the submit button for a more modern look */
+.profile-form button {
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;  /* Larger font for the button text */
+}
+
+/* Hover and focus effects for the button */
+.profile-form button:hover,
+.profile-form button:focus {
+    background-color: #0056b3;
+}
