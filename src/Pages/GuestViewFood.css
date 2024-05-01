@@ -1,1 +1,27 @@
 
+.food-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .recipe {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .back-button {
+    margin-top: 20px;
+  }
+  
+  .back-button a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .back-button a:hover {
+    text-decoration: underline;
+  }
+  
