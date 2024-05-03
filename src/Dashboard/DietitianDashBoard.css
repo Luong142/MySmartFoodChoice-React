@@ -1,53 +1,99 @@
-/* Base settings for the entire body to ensure proper font and layout */
-body, html {
-  height: 100%;
+/* Reset styles to ensure consistency across browsers */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #1a1a1a; /* Darker background for a sleek look */
-  color: #fff; /* White text for contrast */
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Apple's standard font */
 }
 
-/* Main container style to ensure content uses flex for centering */
+/* Basic body styles */
+body {
+  background-color: #1a1a1a; /* Dark background for a modern look */
+  color: #ffffff; /* White text for contrast */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Header styling */
+.header {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #007aff; /* Apple's typical blue */
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Main content styling */
 .dashboard-container {
+  padding-top: 60px; /* Space for the fixed header */
+  width: 90%;
+  max-width: 960px; /* Optimal width for reading and aesthetics */
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Align content towards the top */
-  text-align: center;
-  padding-top: 50px; /* Space from top for breathing room */
-  min-height: 100vh; /* Ensure it fills at least the full height of the viewport */
 }
 
-/* Styling for the header */
+/* Welcome message styling */
 h1 {
-  margin-bottom: 30px; /* Space below the greeting */
-  font-size: 2.5rem; /* Large text for emphasis */
+  font-size: 28px; /* Large font size for the welcome message */
+  margin: 20px 0;
+  color: #4a90e2; /* Bright blue for a friendly and welcoming look */
 }
 
-/* Container for buttons to ensure vertical alignment */
+/* Informative text for users without a business profile */
+p {
+  color: #ccc; /* Lighter grey for less important text */
+  margin: 10px 0;
+}
+
+/* Button styling for actions */
+button {
+  padding: 10px 20px;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+  background-color: #005ecb; /* Darker blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for visual feedback */
+}
+
+/* Styles for button container when business profile exists */
 .action-buttons {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Center buttons horizontally */
+  justify-content: center;
   gap: 15px; /* Space between buttons */
 }
 
-/* Styling for individual buttons */
-button {
-  background-color: #007bff; /* Bright blue for a pop of color */
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s ease-out;
-  width: 200px; /* Uniform width for all buttons */
-}
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .header {
+      padding: 10px 15px;
+  }
 
-/* Hover and focus effects to increase interaction feedback */
-button:hover, button:focus {
-  background-color: #0056b3; /* Darker shade on hover */
-  transform: translateY(-2px); /* Subtle lift effect */
+  .dashboard-container {
+      padding-top: 50px;
+      width: 100%;
+      box-sizing: border-box;
+  }
+
+  h1 {
+      font-size: 24px;
+  }
+
+  button {
+      padding: 8px 16px;
+      font-size: 14px;
+  }
 }
