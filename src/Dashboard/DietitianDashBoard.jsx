@@ -35,7 +35,6 @@ function DietitianDashBoard() {
     }, (error) => {
       console.error("Error fetching data: ", error);
     });
-
     return () => unsubscribeUser();
   }, [userEmail]);
 
