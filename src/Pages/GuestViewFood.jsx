@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { dbRealtime } from '../Firebase/Firebase'; 
 import { ref, get } from 'firebase/database'; 
+import { Link } from 'react-router-dom'; 
+import './GuestViewFood.css'; 
 
 const GuestViewFood = () => {
   const [recipes, setRecipes] = useState([]);
@@ -28,7 +30,8 @@ const GuestViewFood = () => {
 
   return (
     <div>
-      <h2>Recipes for Dietitian with ID: 3uXPL9DJvFOWYn3jR4W8sW8BHLT2</h2>
+      <h2>Recipes-Examples for User</h2>
+      <p>This is where users view recipes under view recipes categories.</p>
       {recipes && Object.keys(recipes).length > 0 ? (
         Object.keys(recipes).map(recipeId => (
           <div key={recipeId} className='recipe'>
@@ -44,12 +47,14 @@ const GuestViewFood = () => {
       ) : (
         <p>No recipes found for this dietitian</p>
       )}
+      <div className="back-button">
+        <Link to="/guest">Back to Guest Page</Link>
+      </div>
     </div>
   );
 };
 
 export default GuestViewFood;
-
 
 
 
