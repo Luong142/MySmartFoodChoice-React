@@ -1,44 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../Firebase/Firebase'; 
 
-import './GuestViewFood.css';
+import React, { useEffect, useState } from 'react';
+import { dbRealtime } from '../Firebase/Firebase'; 
+import { ref, get } from 'firebase/database'; 
+import { Link } from 'react-router-dom'; 
+import './GuestViewFood.css'; 
 
-function GuestViewFood() {
-  const [foodRecipes, setFoodRecipes] = useState([]);
+const GuestViewFood = () => {
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchFoodRecipes = async () => {
+    const fetchRecipes = async () => {
       try {
-        const foodRecipesCollection = collection(db, 'foodRecipes');
-        const snapshot = await getDocs(foodRecipesCollection);
-        const recipesData = snapshot.docs.map((doc) => doc.data());
-        setFoodRecipes(recipesData);
+        const dietitianId = '3uXPL9DJvFOWYn3jR4W8sW8BHLT2';
+        const dietitianRef = ref(dbRealtime, `Dietitian Recipe/${dietitianId}`); 
+        const dietitianSnapshot = await get(dietitianRef);
+
+        if (dietitianSnapshot.exists()) {
+          setRecipes(dietitianSnapshot.val());
+        } else {
+          console.log("No recipes found for this dietitian");
+          setRecipes([]);
+        }
       } catch (error) {
-        console.error('Error fetching food recipes:', error);
+        console.error("Error fetching recipes:", error);
       }
     };
 
-    fetchFoodRecipes();
+    fetchRecipes();
   }, []);
 
   return (
-    <div className="food-container">
-      <h2>Food Recipes</h2>
-      {foodRecipes.map((recipe, index) => (
-        <div key={index} className="recipe">
-          <h3>{recipe.title}</h3>
-          <p>Description: {recipe.description}</p>
-          <p>Items Needed: {recipe.itemsNeeded}</p>
-          <p>Steps: {recipe.steps}</p>
-        </div>
-      ))}
+    <div>
+      <h2>Recipes-Examples for User</h2>
+      <p>This is where users view recipes under view recipes categories.</p>
+      {recipes && Object.keys(recipes).length > 0 ? (
+        Object.keys(recipes).map(recipeId => (
+          <div key={recipeId} className='recipe'>
+            <h3>{recipes[recipeId].strMeal}</h3>
+            <p>{recipes[recipeId].strInstructions}</p>
+            <ul>
+              {recipes[recipeId].ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <p>No recipes found for this dietitian</p>
+      )}
       <div className="back-button">
         <Link to="/guest">Back to Guest Page</Link>
       </div>
     </div>
   );
-}
+};
 
 export default GuestViewFood;

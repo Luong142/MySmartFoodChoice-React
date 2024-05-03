@@ -25,8 +25,10 @@ const db = getFirestore(app);
 // Initialize Firebase Realtime Database
 const database = getDatabase(app);
 
+const dbRealtime = getDatabase(app);
+
 // Initialize Firebase Authentication
 const auth = getAuth(app);
 
 // Exporting both Firestore and Realtime Database instances
-export { db, database, auth };  // Include 'database' in your exports
+export { db, database, auth, dbRealtime };  // Include 'database' in your exports
