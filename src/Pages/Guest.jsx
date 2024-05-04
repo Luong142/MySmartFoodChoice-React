@@ -17,7 +17,7 @@ function Guest() {
         </Link>
       </div>
       <div className="signup-link">
-        <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
+        <p>Want to upgrade to user account? <Link to="/signup">Sign up here</Link></p>
       </div>
       <div className="back-button">
         <Link to="/">Back to Homepage</Link>
