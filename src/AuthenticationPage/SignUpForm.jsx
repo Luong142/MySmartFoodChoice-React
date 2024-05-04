@@ -10,8 +10,13 @@ function SignUpForm() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [birthday, setBirthday] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [userType, setUserType] = useState('user');
+  const [dietaryPreference, setDietaryPreference] = useState('');
+  const [peanutAllergy, setPeanutAllergy] = useState('no');
+  const [seafoodAllergy, setSeafoodAllergy] = useState('no');
+  const [dairyAllergy, setDairyAllergy] = useState('no');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -30,7 +35,16 @@ function SignUpForm() {
         lastName,
         email, // Optional: Firebase Authentication already stores the email, but you might store it for easier querying
         contactNumber,
-        userType
+        userType,
+        ...(userType === 'user' && {
+          dietaryPreference,
+          allergies: {
+            peanuts: peanutAllergy,
+            seafood: seafoodAllergy,
+            dairy: dairyAllergy
+          }
+        }),
+        birthday,
       });
 
       console.log("Account created and additional information stored successfully");
@@ -85,8 +99,17 @@ function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <div className="form-group">
+     <label htmlFor="birthday" className="birthday-container">Birthday</label>
+     <input
+       type="date"
+       id="birthday"
+       value={birthday}
+       onChange={(e) => setBirthday(e.target.value)}
+     />
+   </div>
 
-        {/* <div className="form-group">
+        { <div className="form-group">
           <label htmlFor="contactNumber" className="contact-container">Contact Number</label>
           <input
             type="text"
@@ -94,7 +117,8 @@ function SignUpForm() {
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
           />
-        </div> */}
+        </div> }
+        
 
         <div className="form-group">
           <label htmlFor="userType" className="user-type-container">User Type</label>
@@ -103,6 +127,58 @@ function SignUpForm() {
             <option value="dietician">Dietician</option>
           </select>
         </div>
+        {userType === 'user' && (
+     <div className="form-group">
+       <label htmlFor="dietaryPreference" className="dietary-preference-container">Dietary Preference</label>
+       <select
+         id="dietaryPreference"
+         value={dietaryPreference}
+         onChange={(e) => setDietaryPreference(e.target.value)}
+       >
+         <option value="">Select your dietary preference</option>
+         <option value="non-vegetarian">Non-Vegetarian</option>
+         <option value="vegetarian">Vegetarian</option>
+         <option value="vegan">Vegan</option>
+       </select>
+     </div>
+   )}
+         {userType === 'user' && (
+     <>
+       <div className="form-group">
+         <label htmlFor="peanutAllergy">Peanut Allergy</label>
+         <select
+           id="peanutAllergy"
+           value={peanutAllergy}
+           onChange={(e) => setPeanutAllergy(e.target.value)}
+         >
+           <option value="no">No</option>
+           <option value="yes">Yes</option>
+         </select>
+       </div>
+       <div className="form-group">
+         <label htmlFor="seafoodAllergy">Seafood Allergy</label>
+         <select
+           id="seafoodAllergy"
+           value={seafoodAllergy}
+           onChange={(e) => setSeafoodAllergy(e.target.value)}
+         >
+           <option value="no">No</option>
+           <option value="yes">Yes</option>
+         </select>
+       </div>
+       <div className="form-group">
+         <label htmlFor="dairyAllergy">Dairy Allergy</label>
+         <select
+           id="dairyAllergy"
+           value={dairyAllergy}
+           onChange={(e) => setDairyAllergy(e.target.value)}
+         >
+           <option value="no">No</option>
+           <option value="yes">Yes</option>
+         </select>
+       </div>
+     </>
+   )}
 
         <button className="button" type="submit">Sign Up</button>
       </form>
