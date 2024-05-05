@@ -11,7 +11,7 @@ const GuestViewFood = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const dietitianId = 'tfrNiFBcKrVtBVShb2ykoeRWlz02';
+        const dietitianId = '3uXPL9DJvFOWYn3jR4W8sW8BHLT2';
         const dietitianRef = ref(dbRealtime, `Dietitian Recipe/${dietitianId}`); 
         const dietitianSnapshot = await get(dietitianRef);
 
