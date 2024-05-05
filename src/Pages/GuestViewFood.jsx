@@ -4,23 +4,31 @@ import { ref, get } from 'firebase/database';
 import { Link } from 'react-router-dom'; 
 import './GuestViewFood.css'; 
 
-const GuestViewFood = () => {
+const GuestViewFood = () => 
+{
   const [recipes, setRecipes] = useState([]);
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
+  useEffect(() => 
+  {
+    const fetchRecipes = async () => 
+    {
+      try 
+      {
         const dietitianId = 'Lj75Thf2h1NKYbZdukN9DKYLExI2';
         const dietitianRef = ref(dbRealtime, `Dietitian Recipe/${dietitianId}`); 
         const dietitianSnapshot = await get(dietitianRef);
 
         if (dietitianSnapshot.exists()) {
           setRecipes(dietitianSnapshot.val());
-        } else {
+        } 
+        else 
+        {
           console.log("No recipes found for this dietitian");
           setRecipes([]);
         }
-      } catch (error) {
+      } 
+      catch (error) 
+      {
         console.error("Error fetching recipes:", error);
       }
     };
@@ -35,8 +43,8 @@ const GuestViewFood = () => {
       {recipes && Object.keys(recipes).length > 0 ? 
         Object.keys(recipes).map(recipeId => (
           <div key={recipeId} className='recipe'>
-            <h3>{recipes[recipeId].strMeal}</h3>
-            <p>{recipes[recipeId].strInstructions}</p>
+            <h3>{recipes[recipeId].meals[0].strMeal}</h3>
+            <p>{recipes[recipeId].meals[0].strInstructions}</p>
             <ul>
               <li>{recipes[recipeId].meals[0].ingredientsManual.join(', ')}</li>
             </ul>
