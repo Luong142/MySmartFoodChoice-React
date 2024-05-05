@@ -43,11 +43,11 @@ function DietitianDashBoard() {
   };
 
   const handleCreateRecipe = () => {
-    navigate('/createRecipe');
+    navigate('/CreateRecipe');
   };
 
   const handleViewRecipes = () => {
-    navigate('/viewRecipes');
+    navigate('/ViewRecipes');
   };
 
   return (

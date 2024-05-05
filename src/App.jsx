@@ -18,7 +18,7 @@ import CreateBusinessProfile from './Dashboard/CreateBusinessProfile.jsx';
 /* don't delete this import */
 import './App.css';
 import SignUpForm from './AuthenticationPage/SignUpForm.jsx';
-
+import CreateRecipe from './Dashboard/CreateRecipes.jsx';
 function App() 
 {
   // remove login and logout
@@ -43,6 +43,7 @@ function App()
         <Route path="/GuestViewFood" element={<GuestViewFood />} />
         <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
         <Route path="/CreateBusinessProfile" element={<CreateBusinessProfile />} />
+        <Route path="/CreateRecipe" element={<CreateRecipe />} />
         {/* Add more routes as needed */}
       </Routes>
       </AuthProvider>
