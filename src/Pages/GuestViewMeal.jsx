@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './GuestViewMeal.css'; // Import the CSS file for styling
-import daysImage from '../assets/LogMyMeal.jpg'; // Import the Days image
-import recordMealImage from '../assets/MealHistory.jpg'; // Import the RecordMeal image
+import './GuestViewMeal.css'; 
+import daysImage from '../assets/LogMyMeal.jpg'; 
+import recordMealImage from '../assets/MealHistory.jpg'; 
 
 function GuestViewMeal() {
   return (
