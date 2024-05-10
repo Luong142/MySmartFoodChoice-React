@@ -1,0 +1,45 @@
+.daily-check-in-container {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the page content takes at least the full height of the viewport */
+    margin: 0;
+    background-color: #282c34; /* Assuming a dark background, change as necessary */
+    color: #ffffff; /* Light text color for contrast */
+    text-align: center;
+}
+
+.check-in-days {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the radio buttons horizontally */
+}
+
+.check-in-day {
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    cursor: pointer;
+}
+
+input[type="radio"] + label:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    border-radius: 50%; /* Makes the border round to resemble a radio button */
+    margin-right: 5px;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+input[type="radio"]:checked + label:before {
+    background-color: #000;
+}
