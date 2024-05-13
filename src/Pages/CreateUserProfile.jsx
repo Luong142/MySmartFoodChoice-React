@@ -8,7 +8,7 @@ import { imageDb } from "../Firebase/Firebase";
 import { uploadBytes } from "firebase/storage";
 
 const CreateUserProfile = () => {
-  const userId = localStorage.getItem("uid");
+  const userId = localStorage.getItem("uuid");
   const navigate = useNavigate();
 
   const [age, setAge] = useState("");
@@ -42,7 +42,7 @@ const CreateUserProfile = () => {
       alert("image upload successfuly");
 
       const db = getDatabase();
-      const profileRef = ref(db, `Android User Profile/${userId}`);
+      const profileRef = ref(db, `User Profile/${userId}`);
       console.log("hello", profilePicture, imageUrl);
 
       await set(profileRef, {
@@ -50,7 +50,6 @@ const CreateUserProfile = () => {
         allergyEgg,
         allergySeafood,
         allergyPeanut,
-        detail,
         diabetes,
         dietType,
         firstName,
@@ -58,12 +57,11 @@ const CreateUserProfile = () => {
         gender,
         height,
         hightCholestrol,
-        points,
         weight,
         profileImageUrl: imageUrl,
       });
       alert("Profile updated successfuly!");
-      navigate("/UserDashBoard");
+      navigate("/UserProfile");
     } catch (error) {
       console.error("Failed to Profile updated:", error);
       alert("Failed to Profile updated");
@@ -72,7 +70,7 @@ const CreateUserProfile = () => {
 
   useEffect(() => {
     const db = getDatabase();
-    const userRef = query(ref(db, `Android User Profile/${userId}`));
+    const userRef = query(ref(db, `User Profile/${userId}`));
 
     const unsubscribeUser = onValue(
       userRef,
@@ -83,7 +81,7 @@ const CreateUserProfile = () => {
           setAllergyEgg(userData.allergyEgg || "");
           setAllergyEgg(userData.allergyPeanut || "");
           setAllergySeafood(userData.allergySeafood || "");
-          setDetail(userData.detail || "");
+          //setDetail(userData.detail || "");
           setDiabetes(userData.diabetes || "");
           setDietType(userData.dietType || "");
           setFirstName(userData.firstName || "");
@@ -92,14 +90,16 @@ const CreateUserProfile = () => {
           setHeight(userData.height || "");
           setHighBloodPressure(userData.highBloodPressure || "");
           setHightCholestrol(userData.hightCholestrol || "");
-          setPoints(userData.points || "");
           setWeight(userData.weight || "");
           setLoading(false);
         } else {
           console.log("User not found");
+          setLoading(false);
         }
       },
       (error) => {
+          setLoading(false);
+
         console.error("Error fetching data: ", error);
       }
     );
@@ -161,14 +161,14 @@ const CreateUserProfile = () => {
               </select>
             </div>
 
-            <div>
+            {/* <div>
               <label>Detail</label>
               <input
                 type="text"
                 value={detail}
                 onChange={(e) => setDetail(e.target.value)}
               />
-            </div>
+            </div> */}
 
             <div>
               <label>Diabetes</label>
@@ -183,11 +183,19 @@ const CreateUserProfile = () => {
 
             <div>
               <label>Diet type</label>
-              <input
+              <select
+                value={dietType}
+                onChange={(e) => setDietType(e.target.value)}
+              >
+                <option>Vegetarian</option>
+                <option>Vegan </option>
+                <option>Non vegetarian </option>
+              </select>
+              {/* <input
                 type="text"
                 value={dietType}
                 onChange={(e) => setDietType(e.target.value)}
-              />
+              /> */}
             </div>
 
             <div>
@@ -250,14 +258,6 @@ const CreateUserProfile = () => {
               </select>
             </div>
 
-            <div>
-              <label>Points</label>
-              <input
-                type="number"
-                value={points}
-                onChange={(e) => setPoints(e.target.value)}
-              />
-            </div>
 
             <div>
               <div>

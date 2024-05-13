@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [profilePicture, setProfilePicture] = useState("");
-  const userId = localStorage.getItem("uid");
+  const userId = localStorage.getItem("uuid");
   const navigate = useNavigate();
 
 
   useEffect(() => {
     const db = getDatabase();
-    const userRef = query(ref(db, `Android User Profile/${userId}`));
+    const userRef = query(ref(db, `User Profile/${userId}`));
 
     const unsubscribeUser = onValue(
       userRef,
@@ -76,5 +76,4 @@ function Header() {
     </nav>
   );
 }
-
 export default Header;

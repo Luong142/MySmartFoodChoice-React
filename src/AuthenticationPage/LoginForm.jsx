@@ -46,7 +46,8 @@ function LoginForm() {
       const user = userCredential.user;
       // Assuming you have a method to fetch user type from your backend or auth service
       const fetchedUserType = await fetchUserType(user.uid); // This function needs to be implemented
-  
+      localStorage.setItem("uuid",user.uid);
+      
       if (fetchedUserType !== userType) {
         window.alert("Login failed: Incorrect user type selected.");
         console.error("Login failed: User type does not match.");
