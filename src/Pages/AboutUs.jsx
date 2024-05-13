@@ -2,6 +2,8 @@ import React from 'react';
 import './AboutUs.css';
 import Header from '../HeaderComponents/Header';
 import image from '../assets/AboutUs.jpg';
+import '../Components/Header.css';
+
 function AboutUs() {
     return (
         <div className="about-us-page">

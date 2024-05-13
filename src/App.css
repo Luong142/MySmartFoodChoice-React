@@ -1,10 +1,9 @@
 body, html {
   margin: 0;
   padding: 0;
-
-  /* change color here for all elements, delete this 
+  /* change color here for all elements  delete this colorbackground: linear-gradient(to bottom right, #6B0F1A, #0C7B93); 
  */
- background: linear-gradient(to bottom right, #6B0F1A, #0C7B93); 
+  background: linear-gradient(to bottom right, #6B0F1A, #0C7B93);
 }
 
 /* src/Authentication/App.css */

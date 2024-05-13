@@ -29,16 +29,28 @@ const Graph = () => {
         ],
     };
 
-    // below is the front end.
+    const options = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white', // Change label color here
+                    font: {
+                        size: 16, // Change label font size here
+                    },
+                },
+            },
+        },
+    };
+
     return (
-        <div>
+        <div className='piecontainer'>
             <div className='title'>
                 <h1>User demographics based on the number of users on the platform</h1>
             </div>
 
             <div className='pie'>
-                <Pie data={pie1} />
-                <Pie data={pie2} />
+                <Pie data={pie1} options={options} />
+                <Pie data={pie2} options={options} />
             </div>
         </div>
     );
