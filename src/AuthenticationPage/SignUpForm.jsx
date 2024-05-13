@@ -12,7 +12,7 @@ function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [userType, setUserType] = useState('user');
+  const [accountType, setAccountType] = useState('User'); // Added accountType state with default value
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -35,9 +35,9 @@ function SignUpForm() {
       await set(userRef, {
         firstName,
         lastName,
-        email, // Optional: Firebase Authentication already stores the email, but you might store it for easier querying
-       userType,
-    
+        accountType, // This will save the selected account type
+        email,
+        password  // Caution: Storing passwords in plaintext is not secure. Consider security best practices.
       });
 
       console.log("Account created and additional information stored successfully");
@@ -97,18 +97,9 @@ function SignUpForm() {
             required
           />
         </div>
-        {/* <div className="form-group">
-     <label htmlFor="birthday" className="birthday-container">Birthday</label>
-     <input
-       type="date"
-       id="birthday"
-       value={birthday}
-       onChange={(e) => setBirthday(e.target.value)}
-     />
-   </div>
 
-        { <div className="form-group">
-          <label htmlFor="contactNumber" className="contact-container">Contact Number</label>
+        <div className="form-group">
+          <label className="password-container">Confirm Password</label>
           <input
             type="password"
             placeholder="Confirm your password"
@@ -116,73 +107,20 @@ function SignUpForm() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </div> } */}
-        
+        </div>
 
-        {/* <div className="form-group">
-          <label htmlFor="userType" className="user-type-container">User Type</label>
-          <select id="userType" value={userType} onChange={(e) => setUserType(e.target.value)}>
-            <option value="user">User</option>
-            <option value="dietician">Dietician</option>
+        <div className="form-group">
+          <label className="user-type-container">Account Type</label>
+          <select value={accountType} onChange={(e) => setAccountType(e.target.value)} required>
+            <option value="User">User</option>
+            <option value="Dietitian">Dietitian</option>  // Example, add more account types as needed
           </select>
         </div>
-        {userType === 'user' && (
-     <div className="form-group">
-       <label htmlFor="dietaryPreference" className="dietary-preference-container">Dietary Preference</label>
-       <select
-         id="dietaryPreference"
-         value={dietaryPreference}
-         onChange={(e) => setDietaryPreference(e.target.value)}
-       >
-         <option value="">Select your dietary preference</option>
-         <option value="non-vegetarian">Non-Vegetarian</option>
-         <option value="vegetarian">Vegetarian</option>
-         <option value="vegan">Vegan</option>
-       </select>
-     </div>
-   )}
-         {userType === 'user' && (
-     <>
-       <div className="form-group">
-         <label htmlFor="peanutAllergy">Peanut Allergy</label>
-         <select
-           id="peanutAllergy"
-           value={peanutAllergy}
-           onChange={(e) => setPeanutAllergy(e.target.value)}
-         >
-           <option value="no">No</option>
-           <option value="yes">Yes</option>
-         </select>
-       </div>
-       <div className="form-group">
-         <label htmlFor="seafoodAllergy">Seafood Allergy</label>
-         <select
-           id="seafoodAllergy"
-           value={seafoodAllergy}
-           onChange={(e) => setSeafoodAllergy(e.target.value)}
-         >
-           <option value="no">No</option>
-           <option value="yes">Yes</option>
-         </select>
-       </div>
-       <div className="form-group">
-         <label htmlFor="dairyAllergy">Dairy Allergy</label>
-         <select
-           id="dairyAllergy"
-           value={dairyAllergy}
-           onChange={(e) => setDairyAllergy(e.target.value)}
-         >
-           <option value="no">No</option>
-           <option value="yes">Yes</option>
-         </select>
-       </div>
-     </>
-   )} */}
 
         <button className="button" type="submit">Sign Up</button>
       </form>
-      <p className="signup-link">Already have an account? <a href="/signin">Sign in</a></p>
-      <p className="guest-link"> <Link to="/guest">Continue as Guest?</Link></p>
+      <p className="signup-link">Already have an account? <Link to="/signin">Sign in</Link></p>
+      <p className="guest-link">Continue as Guest? <Link to="/guest">Click Here</Link></p>
     </div>
   );
 }

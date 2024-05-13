@@ -1,61 +1,38 @@
 .nav {
     background-color: dodgerblue;
-    position: sticky;
+    /* Add other styles as needed */
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 10;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.header-content {
-    align-items: center;
-
-    padding: 10px 20px; /* Adjust padding here */
-}
 
 .title {
-<<<<<<< HEAD:src/HeaderComponents/Header.css
     color: black;
-=======
-    font-size: 20px; /* Adjust font size as needed */
->>>>>>> feba60cd334ec8092c77bca1146617ad0528d8c5:src/Components/Header.css
 }
 
 .nav-links {
     list-style-type: none;
     display: flex;
-    padding: 0;
-    margin: 0;
+    margin-right: 700px;
 }
 
 .nav-links li {
-    padding: 10px 20px; /* Adjust padding for navigation links */
+    margin-right: 20px;
 }
 
 .nav-links li a {
-    color: white;
+    color: black;
     text-decoration: none;
-    transition: color 0.3s;
-}
-
-.nav-links li a:hover {
-    color: #ffcc00;
 }
 
 
-@media (max-width: 768px) {
-    .nav-user-operations,
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-links {
-        margin-right: 0;
-    }
-
-    .nav-user-operations li,
-    .nav-links li {
-        margin-right: 0;
-    }
+.header-content {
+    display: flex;
+    margin: 10px;
+    margin-left: 50px;
+    color:black;
+    justify-content: space-between;
+    align-items: center;
 }

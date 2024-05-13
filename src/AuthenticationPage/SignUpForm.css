@@ -1,12 +1,8 @@
 /* src/Authentication/SignUpForm.css */
 
-.box{
-  display: auto;
-  
-  margin-left: 25%;
-  margin-top: 40px;
-  bottom: 10%;
-  left: 75%;
+.signup-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 50px;
@@ -21,52 +17,12 @@
 
 .signup-form {
   background-color: rgba(115, 201, 255, 0.985);
-  border-radius: 20px; /* Make the layout rounded */
-  padding-right: 40px; /* Add some padding on the right for aesthetics */
-  padding-left: 10px;
-  border-radius: 10px; /* Keep the form itself rounded */
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 400px;
-}
-body{
-  display:list-item;
-  justify-content:center;
-  background-color: rgba(115, 201, 255, 0.985);;
-}
-.signup-title {
-  color: black;
-  margin-left: 40%;
-  align-items: center;
-}
-
-.signup-form h2 {
-  color: black;
-  margin-bottom: 40px;
-}
-
-.email-container {
-  color: black;
-  margin-left: 25px;
-}
-
-.username-container {
-  color: black;
-  margin-left: 25px;
-}
-
-.password-container {
-  color: black;
-  margin-left: 25px;
-}
-
-.contact-container{
-  color: black;
-  margin-left: 25px;
-}
-
-.user-type-container{
-  color: black;
-  margin-left: 25px;
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
@@ -89,12 +45,8 @@ body{
 }
 
 .button {
-  display: auto;
-  
-  margin-left: 25%;
-  margin-top: 20px;
-  bottom: 10%;
-  left: 75%;
+  width: 100%;
+  padding: 10px;
   border: none;
   border-radius: 10px;
   background-color: dodgerblue;
@@ -121,7 +73,4 @@ body{
   color: black;
   text-decoration: none;
   font-weight: bold;
-}
-.guest-link {
-  text-align: center;
 }

@@ -1,26 +1,23 @@
 /* src/Authentication/LoginForm.css */
 
-.body {
-  display: flex;
-  margin-left: 25%;
-  margin-bottom: 25 px;
-  bottom: 10%;
-  left: 75%;
-  align-items: center;
-  background-color: rgba(115, 201, 255, 0.985);
-  border-radius: 20px; /* Make the layout rounded */
-  padding-right: 20px; /* Add some padding on the right for aesthetics */
-  padding-left: 10px;
-  border-radius: 10px; /* Keep the form itself rounded */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px; /*the form above any non-positioned content */
+.login-form {
+  display: flex; /* Ensures content is flexibly organized */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; /* Aligns children in the center horizontally */
+  margin: 5% auto 2% auto; /* Adds top margin to drop below the header, centers horizontally */
+  padding: 20px; /* Padding inside the form for spacing around content */
+  background-color: rgba(115, 201, 255, 0.985); /* Semi-transparent blue background */
+  border-radius: 20px; /* Rounded corners for the form */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
+  width: 300px; /* Fixed width for consistency */
+  max-width: 90%; /* Ensures form does not stretch too much on smaller screens */
+  position: relative; /* Ensures that the form is positioned relative to its normal position */
+  top: 50px; /* Adjust this value based on the actual height of your header */
+  z-index: 1; /* Keeps the form above any non-positioned content */
 }
-  
 
-.dropdown 
-{
+.dropdown {
   color: black;
-  background-color:whit;
   width: 90%; /* Ensures dropdown fits well within the form */
   margin-bottom: 15px; /* Spacing after dropdown */
 }
@@ -65,8 +62,7 @@ button.login-button {
   border-radius: 10px; /* Rounded edges on buttons */
   background-color: rgb(7, 175, 226); /* Bright, appealing button color */
   color: white; /* White text for contrast */
-  cursor: pointer;
-  align-content: center; /* Cursor effect to indicate button */
+  cursor: pointer; /* Cursor effect to indicate button */
 }
 
 button.login-button:hover {
@@ -82,7 +78,6 @@ button.login-button:hover {
 .forgot-password a, .signup-link a {
   color: black; /* Link color */
   text-decoration: none; /* No underline */
-  text-align: center;
 }
 
 .signup-link a {
