@@ -25,9 +25,8 @@ body {
     color: var(--text-color);
     background-color: var(--background-dark);
     line-height: 1.6;
-    /*padding: 20px;*/
+    padding: 20px;
     margin: 0 auto;
-    width:100%;
 }
 
 .image, .imageDropDownSmall, .avatar-image img {
@@ -45,36 +44,18 @@ body {
     height: auto;
 }
 
-.video_container{
-    margin-top: 30px;
-    background-color: #1e5d5c;
-    width: 60%;
-    padding-bottom: 50px;
-    padding-top: 50px;
+.title, .titleCenter {
+    color: var(--text-color);
+    font-size: var(--font-size-small);
+    margin: 10px 0;
 }
 
-
-.title {
-    font-size: small;
-    margin-bottom: 40px;
-    padding-top: 20px;
-}
-
-.pie {
-    width: 40%;
-    height: 30%;
+.titleCenter {
     display: flex;
-    justify-content: space-around;
-
+    justify-content: center;
 }
 
-.piecontainer {
-    background-color: #1e5d5c;
-    margin: 30px;
-    padding-bottom: 30px;
-}
-
-.userReview {
+.pie, .userReview {
     background-color: var(--background-light);
     border-radius: var(--border-radius);
     color: var(--text-color);
@@ -83,11 +64,18 @@ body {
     padding: var(--primary-padding);
 }
 
+.pie {
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
 .userReview {
     width: 500px; /* Specific width */
     height: max-content; /* Auto-adjust height */
     text-align: center;
-    margin-left:90%;
+    margin: 0 auto; /* Center the div */
 }
 
 .avatar-image {
@@ -98,8 +86,4 @@ body {
     margin: auto; /* Centers the avatar images */
     border-radius: 50%; /* Circular avatars */
     object-fit: cover; /* Ensures proper fit without stretching */
-    display: auto;
-    margin-left:150%;
-    align-items: center;
-
 }

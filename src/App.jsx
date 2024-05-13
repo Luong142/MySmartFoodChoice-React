@@ -45,9 +45,6 @@ function App()
         <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
         <Route path="/CreateBusinessProfile" element={<CreateBusinessProfile />} />
         <Route path="/CreateRecipe" element={<CreateRecipe />} />
-        <Route path="/UserProfile" element={<UserDashBoard />} />
-        <Route path="/CreateUserProfile" element={<CreateUserProfile />} />
-
         {/* Add more routes as needed */}
       </Routes>
       </AuthProvider>
