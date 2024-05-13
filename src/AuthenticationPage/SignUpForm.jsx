@@ -10,13 +10,7 @@ function SignUpForm() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
   const [userType, setUserType] = useState('user');
-  const [dietaryPreference, setDietaryPreference] = useState('');
-  const [peanutAllergy, setPeanutAllergy] = useState('no');
-  const [seafoodAllergy, setSeafoodAllergy] = useState('no');
-  const [dairyAllergy, setDairyAllergy] = useState('no');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -34,17 +28,8 @@ function SignUpForm() {
         firstName,
         lastName,
         email, // Optional: Firebase Authentication already stores the email, but you might store it for easier querying
-        contactNumber,
-        userType,
-        ...(userType === 'user' && {
-          dietaryPreference,
-          allergies: {
-            peanuts: peanutAllergy,
-            seafood: seafoodAllergy,
-            dairy: dairyAllergy
-          }
-        }),
-        birthday,
+       userType,
+    
       });
 
       console.log("Account created and additional information stored successfully");
@@ -99,7 +84,7 @@ function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
      <label htmlFor="birthday" className="birthday-container">Birthday</label>
      <input
        type="date"
@@ -117,10 +102,10 @@ function SignUpForm() {
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
           />
-        </div> }
+        </div> } */}
         
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="userType" className="user-type-container">User Type</label>
           <select id="userType" value={userType} onChange={(e) => setUserType(e.target.value)}>
             <option value="user">User</option>
@@ -178,7 +163,7 @@ function SignUpForm() {
          </select>
        </div>
      </>
-   )}
+   )} */}
 
         <button className="button" type="submit">Sign Up</button>
       </form>
