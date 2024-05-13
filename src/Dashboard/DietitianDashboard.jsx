@@ -3,15 +3,22 @@ import { getDatabase, ref, query, orderByChild, equalTo, onValue } from 'firebas
 import { useNavigate } from 'react-router-dom';
 import './DietitianDashBoard.css';
 import Header from "../HeaderComponents/Header";
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth
 
 function DietitianDashBoard() {
   const [firstName, setFirstName] = useState('');
   const [hasBusinessProfile, setHasBusinessProfile] = useState(false);
-  const userEmail = localStorage.getItem('email');
+  const { user } = useAuth(); // Use the user from AuthContext
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) {
+      console.log('No user logged in');
+      return;
+    }
+
     const db = getDatabase();
+    const userEmail = user.email; // Use email from the user object
     const userRef = query(ref(db, 'Registered Accounts'), orderByChild('email'), equalTo(userEmail));
 
     const unsubscribeUser = onValue(userRef, (snapshot) => {
@@ -35,8 +42,11 @@ function DietitianDashBoard() {
     }, (error) => {
       console.error("Error fetching data: ", error);
     });
-    return () => unsubscribeUser();
-  }, [userEmail]);
+
+    return () => {
+      unsubscribeUser();
+    };
+  }, [user]); // Dependency on user to refresh data when it changes
 
   const handleCreateProfile = () => {
     navigate('/CreateBusinessProfile');

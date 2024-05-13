@@ -3,7 +3,7 @@ import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/da
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css';
 import Header from '../HeaderComponents/Header';
-
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ function LoginForm() {
   const [userType, setUserType] = useState('User');
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+  const { logIn } = useAuth(); // Use the logIn function from AuthContext
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,9 +32,13 @@ function LoginForm() {
         for (const { key, data } of usersArray) {
           if (data.password === password && data.accountType === userType) {
             userAuthenticated = true;
-            localStorage.setItem('uid', key);
-            localStorage.setItem('userType', userType);
-            localStorage.setItem('email', email);  // Store email on successful login
+            if (rememberMe) {
+              localStorage.setItem('uid', key); // Save UID to localStorage if remember me is checked
+              localStorage.setItem('userType', userType); // Save userType to localStorage
+              localStorage.setItem('email', email); // Save email to localStorage
+            }
+            // Log in user in the AuthContext
+            logIn({ name: data.name, email, userType }); // Assume 'name' is part of the user data
             if (userType === 'User') {
               navigate('/UserDashBoard');
             } else if (userType === 'Dietitian') {
