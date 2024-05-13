@@ -4,56 +4,76 @@ import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css';
 import Header from '../HeaderComponents/Header';
 
+import { auth } from '../Firebase/Firebase'; // Ensure this path is correct for your Firebase configuration
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../Firebase/Firebase'; // Ensure this path is correct for your Firestore configuration
 
+async function fetchUserType(uid) {
+  try {
+    const userDoc = doc(db, "users", uid); // Assuming 'users' is the collection where user data is stored
+    const docSnap = await getDoc(userDoc);
+
+    if (docSnap.exists()) {
+      return docSnap.data().userType; // Assuming 'userType' is the field where user type is stored
+    } else {
+      console.error("No such user found!");
+      return null; // Handle the case where user data does not exist
+    }
+  } catch (error) {
+    console.error("Error fetching user type:", error);
+    return null; // Handle errors in fetching user data
+  }
+}
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('User');
-  const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
-
+  const [userType, setUserType] = useState('user'); // Ensure this is set to 'user' by default
+  const navigate = useNavigate(); // Initialize navigate hook for programmatically navigating
+  // Handle form submission for login
   const handleLogin = async (event) => {
-    event.preventDefault();
-    const db = getDatabase();
-    const usersRef = ref(db, 'Registered Accounts');
-    const emailQuery = query(usersRef, orderByChild('email'), equalTo(email));
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Fixed admin credentials for demonstration purposes
+    const adminEmail = "admin@example.com";
+    const adminPassword = "Password";
+    
+    if (email === adminEmail && password === adminPassword) {
+      window.alert("Admin login successful");
+      navigate('/adminDashboard'); // Navigate to admin dashboard
+      return; // Prevent further execution
+    }
 
     try {
-      const snapshot = await get(emailQuery);
-      if (snapshot.exists()) {
-        let userAuthenticated = false;
-        // Convert snapshot to an array and use a regular for loop
-        const usersArray = [];
-        snapshot.forEach(childSnapshot => {
-          usersArray.push({ key: childSnapshot.key, data: childSnapshot.val() });
-        });
-
-        for (const { key, data } of usersArray) {
-          if (data.password === password && data.accountType === userType) {
-            userAuthenticated = true;
-            localStorage.setItem('uid', key);
-            localStorage.setItem('userType', userType);
-            localStorage.setItem('email', email);  // Store email on successful login
-            if (userType === 'User') {
-              navigate('/UserDashBoard');
-            } else if (userType === 'Dietitian') {
-              navigate('/DietitianDashBoard');
-            }
-            break;
-          }
-        }
-
-        if (!userAuthenticated) {
-          console.error("Invalid credentials or account type mismatch");
-          alert("Invalid credentials or account type mismatch");
-        }
-      } else {
-        console.error("User does not exist.");
-        alert("User does not exist.");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // Assuming you have a method to fetch user type from your backend or auth service
+      const fetchedUserType = await fetchUserType(user.uid); // This function needs to be implemented
+      localStorage.setItem("uuid",user.uid);
+      
+      if (fetchedUserType !== userType) {
+        window.alert("Login failed: Incorrect user type selected.");
+        console.error("Login failed: User type does not match.");
+        return; // Stop execution if the user type does not match
+      }
+  
+      console.log("Login successful");
+      // Navigate based on user type
+      switch(userType) {
+        case 'user':
+          window.alert("User Login succesful ");
+          navigate('/UserProfile');
+          break;
+        case 'vendorDietitian':
+          window.alert("Dietician Login succesful ");
+          navigate('/dietitianDashboard');
+          break;
+        default:
+          console.error("Access Denied: Unauthorized user type");
+          break;
       }
     } catch (error) {
+      window.alert("Login failed: Incorrect credentials.");
       console.error("Login failed:", error.message);
-      alert("Login failed: " + error.message);
     }
   };
 
@@ -71,11 +91,12 @@ function LoginForm() {
             <label className='password-container'>Password</label>
             <input type="password" placeholder="Enter your password" value={password} required onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <div className="input-group">
-            <label htmlFor="userType">Type of User:</label>
-            <select name="userType" id="userType" value={userType} required onChange={(e) => setUserType(e.target.value)}>
-              <option value="User">User</option>
-              <option value="Dietitian">Dietitian</option>
+
+          <div className="dropdown">
+            <label htmlFor="logInAs">Log In As:</label>
+            <select id="logInAs" value={userType} onChange={(e) => setUserType(e.target.value)}>
+              <option value="user">User</option>
+              <option value="vendorDietitian">Dietitian</option>
             </select>
           </div>
           <div className="remember-me">
