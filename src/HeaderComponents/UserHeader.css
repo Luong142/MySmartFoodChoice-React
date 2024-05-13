@@ -1,0 +1,38 @@
+.nav {
+    background-color: dodgerblue;
+    /* Add other styles as needed */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+
+.title {
+    color: black;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    margin-right: 700px;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links li a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.header-content {
+    display: flex;
+    margin: 10px;
+    margin-left: 50px;
+    color:black;
+    justify-content: space-between;
+    align-items: center;
+}
