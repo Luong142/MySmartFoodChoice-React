@@ -1,27 +1,28 @@
 :root {
-    --primary-color: #4CAF50; /* Fresh green for primary actions, suitable for dark background */
-    --text-color: #E0E0E0; /* Lighter text for better readability on dark backgrounds */
-    --background-light: #37474F; /* Softer dark background for main content areas */
-    --background-dark: #263238; /* Even darker shade for elements like user reviews */
-    --accent-color: #FFC107; /* Bright accent color for important components, stands out in dark mode */
-    --border-radius: 15px; /* Modern, rounded corners for all elements */
-    --font-size-regular: 16px; /* Regular text size */
-    --font-size-small: 14px; /* Smaller text size for less prominent text */
+    --primary-color: #333; /* Dark gray as primary color for a sleek look */
+    --text-color: #fff; /* White for high contrast and readability */
+    --background-light: #2c2c2e; /* Light gray for secondary backgrounds */
+    --background-dark: #1c1c1e; /* Very dark gray for primary background areas */
+    --accent-color: #0a84ff; /* Apple's typical accent blue for interactive elements */
+    --border-radius: 12px; /* Smooth, rounded corners for a modern feel */
+    --font-size-regular: 16px; /* Regular text size for clarity */
+    --font-size-small: 14px; /* Smaller text size for auxiliary information */
 }
+
 .img-fluid {
     max-width: 100%;
     height: auto;
 }
 
 .content-center {
-    text-align: center; /* Center text and inline elements */
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center flex items */
+    align-items: center;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--text-color);
     background-color: white;
     line-height: 1.6;
@@ -59,9 +60,9 @@ body {
     background-color: var(--background-light);
     border-radius: var(--border-radius);
     color: var(--text-color);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Enhanced shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadows for depth */
     margin: 20px auto;
-    padding: var(--primary-padding);
+    padding: 20px; /* Adjust padding to match aesthetic */
 }
 
 .pie {
@@ -72,18 +73,18 @@ body {
 }
 
 .userReview {
-    width: 500px; /* Specific width */
-    height: max-content; /* Auto-adjust height */
+    width: 500px;
+    height: max-content;
     text-align: center;
-    margin: 0 auto; /* Center the div */
+    margin: 0 auto;
 }
 
 .avatar-image {
     margin-top: 10px;
-    width: 80px; /* Fixed size for avatars */
-    height: 80px; /* Ensures square aspect ratio for consistency */
+    width: 80px;
+    height: 80px;
     display: block;
-    margin: auto; /* Centers the avatar images */
+    margin: auto;
     border-radius: 50%; /* Circular avatars */
-    object-fit: cover; /* Ensures proper fit without stretching */
+    object-fit: cover;
 }

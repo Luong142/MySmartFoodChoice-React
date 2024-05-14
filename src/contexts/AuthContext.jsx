@@ -1,24 +1,38 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create a context
 const AuthContext = createContext();
 
-// Provider component that wraps your app and makes auth object ...
-// ... available to any child component that calls useAuth().
-export const AuthProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);  // Initialize with `false`
+export function useAuth() {
+    return useContext(AuthContext);
+}
 
-    // Pack the value in a `value` object
-    const value = {
-        isLoggedIn,
-        setIsLoggedIn
+export const AuthProvider = ({ children }) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            setIsLoggedIn(true);
+            setUser(JSON.parse(savedUser));
+        }
+    }, []);
+
+    const logIn = (userData) => {
+        setIsLoggedIn(true);
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData)); // Save the user data to localStorage
     };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+    const logOut = () => {
+        setIsLoggedIn(false);
+        setUser(null);
+        localStorage.removeItem('user'); // Clear the user data from localStorage
+    };
 
-// Hook for child components to get the auth object ...
-// ... and re-render when it changes.
-export const useAuth = () => {
-    return useContext(AuthContext);
+    return (
+        <AuthContext.Provider value={{ isLoggedIn, user, logIn, logOut }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
