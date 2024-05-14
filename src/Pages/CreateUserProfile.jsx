@@ -110,7 +110,8 @@ const CreateUserProfile = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="login-form">
+        <div style={{width:"100%",position:"absolute",display:"flex",justifyContent:"center"}}>
+          <div style={{width:"35%",background:"dodgerblue",padding:"20px"}}>
           <form
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={handleSubmit}
@@ -272,6 +273,7 @@ const CreateUserProfile = () => {
               <input type="submit" value={"Save"} className="save-button"/>
             </div>
           </form>
+        </div>
         </div>
       )}
     </div>

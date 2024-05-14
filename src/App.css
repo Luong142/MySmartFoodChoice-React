@@ -4,7 +4,7 @@ body, html {
 
   /* change color here for all elements, delete this 
  */
- background: linear-gradient(to bottom right, #6B0F1A, #0C7B93); 
+ background: rgb(244, 243, 243); 
 }
 
 /* src/Authentication/App.css */
