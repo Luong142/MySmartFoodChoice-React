@@ -5,11 +5,11 @@ import { RiUser3Line } from "react-icons/ri";
 import { getDatabase, ref, query, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+function UserHeader() {
   const [profilePicture, setProfilePicture] = useState("");
+  const [loading, setLoading] = useState(true);
   const userId = localStorage.getItem("uid");
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const db = getDatabase();
@@ -22,22 +22,25 @@ function Header() {
           const userData = snapshot.val();
           console.log(userData);
           setProfilePicture(userData.profileImageUrl);
+          setLoading(false);
         } else {
           console.log("User not found");
+          setLoading(false);
         }
       },
       (error) => {
         console.error("Error fetching data: ", error);
+        setLoading(false);
       }
     );
 
     return () => unsubscribeUser();
   }, []);
 
-  const handleLogout  = () => {
+  const handleLogout = () => {
     localStorage.clear();
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <nav className="nav">
@@ -61,11 +64,20 @@ function Header() {
           <li>
             <Link to="/AboutUs">About Us</Link>
           </li>
-          <li onClick={handleLogout} style={{cursor:"pointer"}}>Logout</li>
+          <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+            Logout
+          </li>
           <li className="avatar-dropdown">
             <Link to="/CreateUserProfile" className="avatar-icon">
-              {profilePicture ? (
-                <img src={profilePicture} height={50} width={50} />
+              {loading ? (
+                <p>Loading image...</p>
+              ) : profilePicture ? (
+                <img
+                  src={profilePicture}
+                  height={50}
+                  width={50}
+                  style={{ borderRadius: "50%" }}
+                />
               ) : (
                 <RiUser3Line />
               )}
@@ -76,5 +88,4 @@ function Header() {
     </nav>
   );
 }
-
-export default Header;
+export default UserHeader;
