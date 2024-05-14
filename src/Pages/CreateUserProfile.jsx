@@ -110,8 +110,8 @@ const CreateUserProfile = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <div style={{width:"100%",position:"absolute",display:"flex",justifyContent:"center"}}>
-          <div style={{width:"35%",background:"dodgerblue",padding:"20px"}}>
+        <div style={{width:"100%",display:"flex",justifyContent:"center",marginTop:"150px"}}>
+          <div style={{width:"80%",background:"dodgerblue",padding:"20px"}}>
           <form
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={handleSubmit}
