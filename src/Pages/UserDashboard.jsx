@@ -17,7 +17,11 @@ const UserDashBoard = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const userEmail = localStorage.getItem("email");
+  const userEmail = localStorage.getItem("user");
+
+
+
+  console.log("hello",userEmail);
 
   useEffect(() => {
     const db = getDatabase();
@@ -33,7 +37,8 @@ const UserDashBoard = () => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
           const userKey = Object.keys(userData)[0];
-          const userFirstName = userData[userKey].firstName;
+          console.log("hello",userKey)
+          const userFirstName = userData[userKey];
           const userEmail = userData[userKey].email;
           const userPassword = userData[userKey].password;
           setFirstName(userFirstName);
@@ -51,11 +56,13 @@ const UserDashBoard = () => {
     return () => unsubscribeUser();
   }, [userEmail]);
 
+  console.log(firstName)
+
   return (
     <div className="">
       <center>
       <Header/>
-      Welcome  {firstName}
+      Welcome  
       </center>
       
     </div>
