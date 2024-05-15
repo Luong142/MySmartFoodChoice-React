@@ -66,7 +66,7 @@ function UserHeader() {
           <li>
             <Link to="/AboutUs">About Us</Link>
           </li>
-          <li onClick={handleLogout} style={{ cursor: "pointer"}}>
+          <li onClick={handleLogout} style={{ cursor: "pointer" ,color:'#fff'}}>
             Logout
           </li>
           <li></li>
