@@ -1,21 +1,37 @@
-.nav {
-    background-color: dodgerblue;
-    /* Add other styles as needed */
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+:root {
+    --primary-color: #333; /* Dark grey, gives a subtle and elegant look */
+    --text-color: #fff; /* White text for high contrast on dark backgrounds */
+    --background-light: #424242; /* Soft grey for secondary elements */
+    --background-dark: #212121; /* Very dark grey for primary background areas */
+    --accent-color: #007aff; /* Blue color that mimics Apple's accent color */
+    --border-radius: 10px; /* Smooth, rounded corners for all interactive elements */
+    --font-size-regular: 16px; /* Regular text size for clear readability */
+    --font-size-small: 14px; /* Smaller text size for auxiliary information */
 }
 
+.nav {
+    background-color: var(--primary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
 
 .title {
-    color: black;
+    color: var(--text-color);
+    font-size: 1.5em;
 }
 
 .nav-links {
     list-style-type: none;
     display: flex;
-    margin-right: 700px;
+    margin-top: 20px;
 }
 
 .nav-links li {
@@ -23,16 +39,39 @@
 }
 
 .nav-links li a {
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
+    font-size: var(--font-size-regular);
+    transition: color 0.3s ease;
+    margin-top: 20px;
 }
 
+.nav-links li a:hover {
+    color: var(--accent-color);
+}
 
 .header-content {
     display: flex;
-    margin: 10px;
-    margin-left: 50px;
-    color:black;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+}
+
+.login-section {
+    display: flex;
+    align-items: center;
+    
+}
+
+.login-section a {
+    color: var(--text-color);
+    text-decoration: none;
+    background-color: var(--accent-color);
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.login-section a:hover {
+    background-color: var(--text-color);
+    color: var(--primary-color);
 }

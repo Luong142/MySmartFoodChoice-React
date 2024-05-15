@@ -3,9 +3,10 @@ import Header from "../HeaderComponents/UserHeader";
 import { getDatabase, ref, set, query, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import { getDownloadURL, ref as sRef } from "firebase/storage";
-import "./CreateUserProfile.css"
+import "./CreateUserProfile.css";
 import { imageDb } from "../Firebase/Firebase";
 import { uploadBytes } from "firebase/storage";
+import "./CreateUserProfile.css";
 
 const CreateUserProfile = () => {
   const userId = localStorage.getItem("uid");
@@ -28,9 +29,11 @@ const CreateUserProfile = () => {
   const [profilePicture, setProfilePicture] = useState("");
 
   const [loading, setLoading] = useState(true);
+  const [postLoading, setPostLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setPostLoading(true);
 
     try {
       const imgRef = sRef(imageDb, `ProfilePics/${userId}`);
@@ -59,10 +62,12 @@ const CreateUserProfile = () => {
         profileImageUrl: imageUrl,
       });
       alert("Profile updated successfuly!");
+      setPostLoading(false);
       navigate("/UserDashBoard");
     } catch (error) {
       console.error("Failed to Profile updated:", error);
       alert("Failed to Profile updated");
+      setPostLoading(false);
     }
   };
 
@@ -110,10 +115,11 @@ const CreateUserProfile = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="login-form">
+        <div className="profile-container">
           <form
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={handleSubmit}
+            className="user-profile"
           >
             <div>
               <label>Age</label>
@@ -121,6 +127,8 @@ const CreateUserProfile = () => {
                 type="number"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
+                className="user-profile-input"
+                required
               />
             </div>
 
@@ -129,6 +137,8 @@ const CreateUserProfile = () => {
               <select
                 value={allergyEgg}
                 onChange={(e) => setAllergyEgg(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
@@ -140,6 +150,8 @@ const CreateUserProfile = () => {
               <select
                 value={allergyPeanut}
                 onChange={(e) => setAllergyPeanut(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
@@ -151,19 +163,21 @@ const CreateUserProfile = () => {
               <select
                 value={allergySeafood}
                 onChange={(e) => setAllergySeafood(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
               </select>
             </div>
 
-            
-
             <div>
               <label>Diabetes</label>
               <select
                 value={diabetes}
                 onChange={(e) => setDiabetes(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
@@ -175,12 +189,13 @@ const CreateUserProfile = () => {
               <select
                 value={dietType}
                 onChange={(e) => setDietType(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>Vegan</option>
                 <option>Veg</option>
                 <option>Non veg</option>
               </select>
-             
             </div>
 
             <div>
@@ -189,6 +204,8 @@ const CreateUserProfile = () => {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                className="user-profile-input"
+                required
               />
             </div>
 
@@ -198,6 +215,8 @@ const CreateUserProfile = () => {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                className="user-profile-input"
+                required
               />
             </div>
 
@@ -206,6 +225,8 @@ const CreateUserProfile = () => {
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>male</option>
                 <option>female</option>
@@ -218,6 +239,8 @@ const CreateUserProfile = () => {
                 type="text"
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
+                className="user-profile-input"
+                required
               />
             </div>
 
@@ -226,6 +249,8 @@ const CreateUserProfile = () => {
               <select
                 value={highBloodPressure}
                 onChange={(e) => setHighBloodPressure(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
@@ -237,13 +262,13 @@ const CreateUserProfile = () => {
               <select
                 value={hightCholestrol}
                 onChange={(e) => setHightCholestrol(e.target.value)}
+                className="user-profile-input"
+                required
               >
                 <option>true</option>
                 <option>false</option>
               </select>
             </div>
-
-            
 
             <div>
               <div>
@@ -255,6 +280,7 @@ const CreateUserProfile = () => {
                   id="myFile"
                   name="filename"
                   onChange={(e) => setImage(e.target.files[0])}
+                  required
                 />
               </div>
             </div>
@@ -265,11 +291,17 @@ const CreateUserProfile = () => {
                 type="number"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
+                className="user-profile-input"
+                required
               />
             </div>
 
             <div style={{ marginTop: 10 }}>
-              <input type="submit" value={"Save"} className="save-button"/>
+              {postLoading ? (
+                <p>Loading...</p>
+              ) : (
+                <input type="submit" value={"Save"} className="save-button" />
+              )}
             </div>
           </form>
         </div>

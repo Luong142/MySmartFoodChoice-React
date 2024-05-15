@@ -8,10 +8,10 @@ import {
   onValue,
 } from "firebase/database";
 import Header from "../HeaderComponents/UserHeader";
+import { Link } from "react-router-dom";
 //import "./UserDashboard.css";
 
 const UserDashBoard = () => {
-
   const [firstName, setFirstName] = useState("");
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ const UserDashBoard = () => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
           const userKey = Object.keys(userData)[0];
-          const userFirstName = userData[userKey].accountType;
+          const userFirstName = userData[userKey].firstName;
           const userEmail = userData[userKey].email;
           const userPassword = userData[userKey].password;
           setFirstName(userFirstName);
@@ -52,9 +52,14 @@ const UserDashBoard = () => {
   }, [userEmail]);
 
   return (
-    <div className="dashboard-container">
-      <Header/>
-      Welcome  {firstName}
+    <div className="">
+      <Header />
+      <div>
+        <h1>Welcome {firstName}</h1>
+        <Link to={"/CreateUserProfile"}>
+          <button className="btn btn-primary">Create user profile</button>
+        </Link>
+      </div>
     </div>
   );
 };
