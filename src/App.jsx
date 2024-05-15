@@ -12,9 +12,10 @@ import Guest from './Pages/Guest.jsx';
 import GuestRecordMeal from './Pages/GuestRecordMeal.jsx';
 import GuestViewMeal from './Pages/GuestViewMeal.jsx';
 import GuestViewFood from './Pages/GuestViewFood.jsx';
+//import DietitianDashBoard from './Dashboard/DietitianDashboard.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import CreateBusinessProfile from './Dashboard/CreateBusinessProfile.jsx';
-import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
+//import DietitianDashBoard from './Dashboard/DietitianDashBoard.jsx';
 import UserDashBoard from './Pages/UserDashboard.jsx';
 import CreateUserProfile from './Pages/CreateUserProfile.jsx';
 /* don't delete this import */
@@ -47,7 +48,6 @@ function App()
         <Route path="/CreateUserProfile" element={<CreateUserProfile />} />
         <Route path="/CreateBusinessProfile" element={<CreateBusinessProfile />} />
         <Route path="/CreateRecipe" element={<CreateRecipe />} />
-        <Route path="/DietitianDashBoard" element={<DietitianDashBoard />} />
         {/* Add more routes as needed */}
       </Routes>
       </AuthProvider>
