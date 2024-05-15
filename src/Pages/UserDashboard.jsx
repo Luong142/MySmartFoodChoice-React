@@ -33,7 +33,7 @@ const UserDashBoard = () => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
           const userKey = Object.keys(userData)[0];
-          const userFirstName = userData[userKey].firstName;
+          const userFirstName = userData[userKey].accountType;
           const userEmail = userData[userKey].email;
           const userPassword = userData[userKey].password;
           setFirstName(userFirstName);
@@ -52,12 +52,9 @@ const UserDashBoard = () => {
   }, [userEmail]);
 
   return (
-    <div className="">
-      <center>
+    <div className="dashboard-container">
       <Header/>
       Welcome  {firstName}
-      </center>
-      
     </div>
   );
 };

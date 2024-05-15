@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./UserHeader.css";
+import "./Header.css";
 import { RiUser3Line } from "react-icons/ri";
 import { getDatabase, ref, query, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
