@@ -1,126 +1,94 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link, useNavigate } from 'react-router-dom';
+import { getDatabase, ref, query, orderByChild, equalTo, get } from "firebase/database";
+import { useNavigate, Link } from 'react-router-dom';
 import './LoginForm.css';
-import { auth } from '../Firebase/Firebase'; // Ensure this path is correct for your Firebase configuration
-import { doc, getDoc } from "firebase/firestore";
-import { db } from '../Firebase/Firebase'; // Ensure this path is correct for your Firestore configuration
+import Header from '../HeaderComponents/Header';
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth
 
-async function fetchUserType(uid) {
-  try {
-    const userDoc = doc(db, "users", uid); // Assuming 'users' is the collection where user data is stored
-    const docSnap = await getDoc(userDoc);
-
-    if (docSnap.exists()) {
-      return docSnap.data().userType; // Assuming 'userType' is the field where user type is stored
-    } else {
-      console.error("No such user found!");
-      return null; // Handle the case where user data does not exist
-    }
-  } catch (error) {
-    console.error("Error fetching user type:", error);
-    return null; // Handle errors in fetching user data
-  }
-}
 function LoginForm() {
-  const [email, setEmail] = useState(''); 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('user'); // Ensure this is set to 'user' by default
-  const navigate = useNavigate(); // Initialize navigate hook for programmatically navigating
-  // Handle form submission for login
+  const [userType, setUserType] = useState('User');
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+  const { logIn } = useAuth(); // Use the logIn function from AuthContext
+
   const handleLogin = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    
-    // Fixed admin credentials for demonstration purposes
-    const adminEmail = "admin@example.com";
-    const adminPassword = "adminPass";
-    
-    if (email === adminEmail && password === adminPassword) {
-      window.alert("Admin login successful");
-      navigate('/adminDashboard'); // Navigate to admin dashboard
-      return; // Prevent further execution
-    }
+    event.preventDefault();
+    const db = getDatabase();
+    const usersRef = ref(db, 'Registered Accounts');
+    const emailQuery = query(usersRef, orderByChild('email'), equalTo(email));
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      // Assuming you have a method to fetch user type from your backend or auth service
-      const fetchedUserType = await fetchUserType(user.uid); // This function needs to be implemented
-  
-      if (fetchedUserType !== userType) {
-        window.alert("Login failed: Incorrect user type selected.");
-        console.error("Login failed: User type does not match.");
-        return; // Stop execution if the user type does not match
-      }
-  
-      console.log("Login successful");
-      // Navigate based on user type
-      switch(userType) {
-        case 'user':
-          window.alert("User Login succesful ");
-          navigate('/userDashboard');
-          break;
-        case 'vendorDietitian':
-          window.alert("Dietician Login succesful ");
-          navigate('/dietitianDashboard');
-          break;
-        default:
-          console.error("Access Denied: Unauthorized user type");
-          break;
+      const snapshot = await get(emailQuery);
+      if (snapshot.exists()) {
+        let userAuthenticated = false;
+        // Convert snapshot to an array and use a regular for loop
+        const usersArray = [];
+        snapshot.forEach(childSnapshot => {
+          usersArray.push({ key: childSnapshot.key, data: childSnapshot.val() });
+        });
+
+        for (const { key, data } of usersArray) {
+          if (data.password === password && data.accountType === userType) {
+            userAuthenticated = true;
+            if (rememberMe) {
+              localStorage.setItem('uid', key); // Save UID to localStorage if remember me is checked
+              localStorage.setItem('userType', userType); // Save userType to localStorage
+              localStorage.setItem('email', email); // Save email to localStorage
+            }
+            // Log in user in the AuthContext
+            logIn({ name: data.name, email, userType }); // Assume 'name' is part of the user data
+            if (userType === 'User') {
+              navigate('/UserDashBoard');
+            } else if (userType === 'Dietitian') {
+              navigate('/DietitianDashBoard');
+            }
+            break;
+          }
+        }
+
+        if (!userAuthenticated) {
+          console.error("Invalid credentials or account type mismatch");
+          alert("Invalid credentials or account type mismatch");
+        }
+      } else {
+        console.error("User does not exist.");
+        alert("User does not exist.");
       }
     } catch (error) {
-      window.alert("Login failed: Incorrect credentials.");
       console.error("Login failed:", error.message);
+      alert("Login failed: " + error.message);
     }
   };
 
   return (
     <div className="login-container">
+      <Header/>
       <div className="login-form">
         <h2 className='login-title'>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label className='email-container'>Email</label>
-            <input
-                type="email"
-                placeholder="Please enter email"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-            />
+            <input type="email" placeholder="Enter your email" value={email} required onChange={(e) => setEmail(e.target.value)} />
           </div>
-
           <div className="input-group">
             <label className='password-container'>Password</label>
-            <input
-                type="password"
-                placeholder="Please enter password"
-                value={password}
-                required
-                onChange={(e) => setPassword(e.target.value)}
-            />
+            <input type="password" placeholder="Enter your password" value={password} required onChange={(e) => setPassword(e.target.value)} />
           </div>
-
-          <div className="dropdown">
-            <label htmlFor="logInAs">Log In As:</label>
-            <select id="logInAs" value={userType} onChange={(e) => setUserType(e.target.value)}>
-              <option value="user">User</option>
-              <option value="vendorDietitian">Dietitian</option>
+          <div className="input-group">
+            <label htmlFor="userType">Type of User:</label>
+            <select name="userType" id="userType" value={userType} required onChange={(e) => setUserType(e.target.value)}>
+              <option value="User">User</option>
+              <option value="Dietitian">Dietitian</option>
             </select>
           </div>
-
           <div className="remember-me">
-            <input type="checkbox" id="rememberMe" />
+            <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
             <label htmlFor="rememberMe">Remember me?</label>
           </div>
-
           <button className='login-button' type="submit">LOGIN</button>
         </form>
-
-        <a href="#" className="forgot-password">Forget Password?</a>
-
-        <div className="divider">OR</div>
-
         <div className='signup-link'>
           Need an Account? <Link to="/SignUp">SIGN UP</Link>
         </div>
